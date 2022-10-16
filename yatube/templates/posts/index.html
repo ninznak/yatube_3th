@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block title %} <title>{{ title }}</title> {% endblock %}
-  <body>    
+      
     {% include 'includes/header.html' %}
-    <main>
+    
       {% block content %}
       <!-- класс py-5 создает отступы сверху и снизу блока -->
       <div class="container py-5">     
@@ -17,17 +17,16 @@
               Дата публикации: {{ post.pub_date|date:"d E Y" }}
             </li>
           </ul>      
-          <p>
-            {{ post.text }}
-          </p>
-          <a href=''>все записи группы</a>
+          <p>{{ post.text }}</p>
+          <!-- <a href=''>все записи группы</a> -->
+          {% if post.group %}
+            <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы {{ group.title }}</a>
+          {% endif %}
           {% if not forloop.last %}<hr>{% endif %}
           {% endfor %}
         </article>
         <!-- под последним постом нет линии -->
       </div>
       {% endblock %}
-    </main>
+    
     {% include 'includes/footer.html'%}
-  </body>
-</html>
